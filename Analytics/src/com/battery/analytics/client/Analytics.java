@@ -1,5 +1,8 @@
 package com.battery.analytics.client;
 
+import org.moxieapps.gwt.highcharts.client.Chart;
+import org.moxieapps.gwt.highcharts.client.Series;
+
 import com.battery.analytics.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -84,6 +87,22 @@ public class Analytics implements EntryPoint {
 				sendButton.setFocus(true);
 			}
 		});
+		
+		//highcharts code are here: start:		
+		 Chart chart = new Chart()
+		   .setType(Series.Type.SPLINE)
+		   .setChartTitleText("Lawn Tunnels")
+		   .setMarginRight(10);
+
+		 Series series = chart.createSeries()
+		   .setName("Moles per Yard")
+		   .setPoints(new Number[] { 163, 203, 276, 408, 547, 729, 628 });
+		chart.addSeries(series);
+		
+		RootPanel.get("highchartsContainer").add(chart);
+	
+//highcharts code are here: end:
+		
 
 		// Create a handler for the sendButton and nameField
 		class MyHandler implements ClickHandler, KeyUpHandler {
