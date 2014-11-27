@@ -18,7 +18,8 @@ public class DataFeedHelper {
 		   document.addField( IDField, String.valueOf(i));
 		   document.addField( nameField, "Gouda cheese wheel"+i);
 		   document.addField( priceField, 49.99+i);
-		   UpdateResponse response = solr.add(document);		
-		}   
+		   UpdateResponse response = solr.add(document);			   
+		} 
+		solr.commit(); 
 	}
 }

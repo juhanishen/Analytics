@@ -14,7 +14,7 @@ public class BatteryDataFeed {
 	private static int numThreads = 2;
 	//one thread, in i3 (bought in 2009, two cores), 1000doc 4G(1G available), 128M for JVM, eclipse environment it is 86 msgs
 	//one thread, in i3 (bought in 2009, two cores),  10000doc 4G(1G available), 512M for JVM, eclipse environment it is 96 msgs
-	//two threads, in i3 (bought in 2009, two cores),  10000doc 4G(1G available), 512M for JVM, eclipse environment it is 193 msgs
+	//two threads, in i3 (bought in 2009, two cores),  10000doc 4G(1G available), 512M for JVM, eclipse environment it is 247 msgs
 	public static void main(String[] args) throws SolrServerException, IOException, InterruptedException{	
 		
 		CountDownLatch doneSignal = new CountDownLatch(numThreads);		
