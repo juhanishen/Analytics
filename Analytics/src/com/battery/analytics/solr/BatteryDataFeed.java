@@ -36,6 +36,6 @@ public class BatteryDataFeed {
 	    int capacity = (int) (numDoc /((double)(end-start)/1000/1000/1000));
 	 
 		System.out.println("current throughput is:"+capacity+" msg/second");
-
+             
 	}
 }
