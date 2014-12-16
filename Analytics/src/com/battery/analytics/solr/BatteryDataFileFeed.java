@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class BatterDataFileFeed {
+public class BatteryDataFileFeed {
 	
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 
