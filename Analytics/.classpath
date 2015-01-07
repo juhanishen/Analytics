@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="test-classes" path="test"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/solrj/commons-io-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/httpclient-4.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/httpcore-4.3.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/httpmime-4.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/noggit-0.5.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/slf4j-api-1.7.6.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/solr-solrj-4.10.2.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/wstx-asl-3.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/solrj/zookeeper-3.4.6.jar"/>
+	<classpathentry kind="lib" path="lib/highcharts/org.moxieapps.gwt.highcharts-1.5.0.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
