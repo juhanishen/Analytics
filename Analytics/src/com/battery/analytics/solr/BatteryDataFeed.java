@@ -10,8 +10,8 @@ import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 
 public class BatteryDataFeed {
-	private static int numDoc = 10000;
-	private static int numThreads = 2;
+	private static int numDoc = 10;
+	private static int numThreads = 1;
 	//one thread, in i3 (bought in 2009, two cores), 1000doc 4G(1G available), 128M for JVM, eclipse environment it is 86 msgs
 	//one thread, in i3 (bought in 2009, two cores),  10000doc 4G(1G available), 512M for JVM, eclipse environment it is 96 msgs
 	//two threads, in i3 (bought in 2009, two cores),  10000doc 4G(1G available), 512M for JVM, eclipse environment it is 247 msgs
@@ -23,7 +23,7 @@ public class BatteryDataFeed {
 		SolrServer solr = new HttpSolrServer(urlString);	
 		Thread[] feedThreads = new Thread[numThreads];
 		for(int i=0;i<feedThreads.length;i++){
-			feedThreads[i]=new Thread(new DataFeedThread(solr, String.valueOf(i),i*numDoc/numThreads,(i+1)*numDoc/numThreads,doneSignal));
+			feedThreads[i]=new Thread(new DataFeedThread(solr, String.valueOf(i),doneSignal));
 		}	
 
 		long start = System.nanoTime();

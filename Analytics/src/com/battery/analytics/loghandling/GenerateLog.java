@@ -8,11 +8,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import com.battery.analytics.solr.DataFeedHelper;
 
 public class GenerateLog {
    
-	private static int numLogItems = 2000;
+	private static int numLogItems = 10;
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	
 	public static void main(String[] args) throws IOException {
@@ -20,14 +25,21 @@ public class GenerateLog {
 	   Path path = Paths.get("./lib/test.log");
 	   BufferedWriter writer = Files.newBufferedWriter(path, ENCODING,StandardOpenOption.CREATE,StandardOpenOption.APPEND);
        int j=0;
+       long line=1;
 	   for(int i=0;i<numLogItems;i++){
     	   StringBuffer msg = new StringBuffer();
-    	   msg.append("name:"+"name"+i+" "+" timestamp:"+Calendar.getInstance().getTime());
+    	   
+     	   Date date = new Date();
+    	   Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    	   calendar.setTime(date);
+    	   SimpleDateFormat dateFormatter = new SimpleDateFormat("YYYY-MM-DD'T'HH:MM:SS.000'Z'");
+    	   msg.append(" name"+DataFeedHelper.keyValueSeporator+"name"+i+DataFeedHelper.attributeSeporator+" timestamp"+DataFeedHelper.keyValueSeporator+dateFormatter.format(calendar.getTime()));
     	   msg.append("\n");
     	   int random = (int) Math.floor(Math.random()*1000);
-    	   msg.append("count:"+random);
+    	   line++;
+    	   msg.append("count"+DataFeedHelper.keyValueSeporator+random);
     	   msg.append("\n");
-    	   msg.append("error_t:"+"this is error information,get a Randome number "+random);
+    	   msg.append("error"+DataFeedHelper.keyValueSeporator+"this is error information,get a Randome number "+random);
     	   printMsgToFile(writer,msg.toString());
     	   j=i;
        }	   
