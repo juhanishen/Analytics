@@ -20,7 +20,9 @@ public class ZXGJBatterySolrReading {
         //query 1:
 //         query.setQuery("*:*");
         //query 2:
-         query.setQuery(ZXGJParserHelper.logLevelField+":"+"WARN");
+//        query.setQuery(ZXGJParserHelper.logLevelField+":"+"WARN");
+//         query.setRequestHandler("/select");
+//         System.out.println("query handler is:"+query.getRequestHandler());
         //query 3
 //          query.setQuery("logLevel_s:WARN&wt=json&indent=true&group.ngroups=true&group.main=true&group=true&group.field=logLevel_s&group.limit=3"); 
 //        query.setQuery("sony digital camera");
@@ -29,25 +31,23 @@ public class ZXGJBatterySolrReading {
 //        query.setStart(0);    
 //        query.set("defType", "edismax");
         
-        QueryResponse response = solr.query(query);
+//         QueryResponse response = solr.query(query);
 
-//        ModifiableSolrParams params = new ModifiableSolrParams();
-//        params.set("qt", "/select");
-//        params.set("q", "*.*");
-//        params.set("spellcheck", "on");
-//        params.set("spellcheck.build", "true");  
-//        QueryResponse response = solr.query(params);
- 
+        ModifiableSolrParams params = new ModifiableSolrParams();
+        params.set("qt", "/select");
+ //       params.set("q", "logLevel_s:WARN");
+        params.set("q","*");
+        params.set("spellcheck", "on");
+        params.set("spellcheck.build", "true");  
+        
+        QueryResponse response = solr.query(params);
+        
+        
+        System.out.println("response header is:"+response.getResponseHeader().toString());  
         
         SolrDocumentList results = response.getResults();
-        NamedList<Object> namedList = response.getResponse();
-        Object objResponse = namedList.get("response");
-        System.out.println("number of records is:"+objResponse.toString().substring(10, objResponse.toString().indexOf(',')));
-        System.out.println("obj is"+objResponse.toString());
-        System.out.println("response is:"+namedList.get("response"));
-        for(Object obj:namedList){
-        	System.out.println("list obj is:"+obj);
-        }
+        System.out.println("number of result is:"+results.getNumFound());
+
 //        for (int i = 0; i < results.size(); ++i) {
         int range = Math.min(10, results.size());
         for (int i = 0; i <range; ++i) { 
