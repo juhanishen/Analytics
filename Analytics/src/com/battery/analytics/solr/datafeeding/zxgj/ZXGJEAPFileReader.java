@@ -45,6 +45,8 @@ public class ZXGJEAPFileReader {
 	       uploader.submitDoc(lines);	         
 	       lineNum++;
 	       recordNum++;
+	       lines=null;
+	       lines = new ArrayList<String>();
 	    }
 	    br.close();
 	    fr.close();
