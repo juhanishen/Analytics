@@ -1,9 +1,14 @@
 package com.battery.analytics.solr.datafeeding.zxgjreading;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.FacetField;
+import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -31,22 +36,48 @@ public class ZXGJBatterySolrReading {
 //        query.setStart(0);    
 //        query.set("defType", "edismax");
         
-//         QueryResponse response = solr.query(query);
+        //query facet
+        query.setQuery("*:*");
+        query.addFacetField(ZXGJParserHelper.logLevelField);
+        
+        QueryResponse response = solr.query(query);
 
-        ModifiableSolrParams params = new ModifiableSolrParams();
-        params.set("qt", "/select");
- //       params.set("q", "logLevel_s:WARN");
-        params.set("q","*");
-        params.set("spellcheck", "on");
-        params.set("spellcheck.build", "true");  
+        // params 1;
+//        ModifiableSolrParams params = new ModifiableSolrParams();
+//        params.set("qt", "/select");
+//        params.set("q","*");
+//        params.set("spellcheck", "on");
+//        params.set("spellcheck.build", "true");  
+//        params.set("group",true);
+//        params.set("group.main", true);
+//        params.set("group.field", "logLevel_s");        
         
-        QueryResponse response = solr.query(params);
         
+     // params 2;
+//      ModifiableSolrParams params = new ModifiableSolrParams();
+//      params.set("qt", "/select");
+//      params.set("q","*");
+//      params.set("spellcheck", "on");
+//      params.set("spellcheck.build", "true");  
+//      params.set("facet.field",ZXGJParserHelper.logLevelField);
+         
+//      QueryResponse response = solr.query(params);
         
-        System.out.println("response header is:"+response.getResponseHeader().toString());  
+       List<FacetField> cat = response.getFacetFields();
+       for(FacetField key: cat){
+    	   System.out.println("key is "+key.getName()+",value is:"+key.getValueCount());
+    	   List<Count> values = key.getValues();
+    	   for(Count c : values){
+    			   System.out.println(c.getName()+":"+c.getCount());
+    	   }
+       }
+//       System.out.println("name is WARN+,value:"+cat.get("WARN"));
+//       System.out.println("name is INFO+,value:"+cat.get("INFO"));
         
-        SolrDocumentList results = response.getResults();
-        System.out.println("number of result is:"+results.getNumFound());
+      System.out.println("response header is:"+response.getResponseHeader().toString());  
+        
+      SolrDocumentList results = response.getResults();
+      System.out.println("number of result is:"+results.getNumFound());
 
 //        for (int i = 0; i < results.size(); ++i) {
         int range = Math.min(10, results.size());
