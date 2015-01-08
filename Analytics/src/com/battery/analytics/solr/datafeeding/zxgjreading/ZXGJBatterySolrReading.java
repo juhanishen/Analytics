@@ -8,6 +8,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
+import org.apache.solr.common.util.NamedList;
 
 import com.battery.analytics.solr.datafeeding.zxgj.ZXGJParserHelper;
 
@@ -17,7 +18,7 @@ public class ZXGJBatterySolrReading {
         SolrServer solr = new HttpSolrServer(urlString);	
         SolrQuery query = new SolrQuery();
         //query 1:
-//        query.setQuery("*:*");
+//         query.setQuery("*:*");
         //query 2:
          query.setQuery(ZXGJParserHelper.logLevelField+":"+"WARN");
         //query 3
@@ -36,10 +37,17 @@ public class ZXGJBatterySolrReading {
 //        params.set("spellcheck", "on");
 //        params.set("spellcheck.build", "true");  
 //        QueryResponse response = solr.query(params);
-// 
+ 
         
         SolrDocumentList results = response.getResults();
-        System.out.println("results size is:"+results.size());
+        NamedList<Object> namedList = response.getResponse();
+        Object objResponse = namedList.get("response");
+        System.out.println("number of records is:"+objResponse.toString().substring(10, objResponse.toString().indexOf(',')));
+        System.out.println("obj is"+objResponse.toString());
+        System.out.println("response is:"+namedList.get("response"));
+        for(Object obj:namedList){
+        	System.out.println("list obj is:"+obj);
+        }
 //        for (int i = 0; i < results.size(); ++i) {
         int range = Math.min(10, results.size());
         for (int i = 0; i <range; ++i) { 
