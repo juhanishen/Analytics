@@ -1,5 +1,9 @@
 package com.battery.analytics.client;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 import org.moxieapps.gwt.highcharts.client.Axis;
 import org.moxieapps.gwt.highcharts.client.Chart;
 import org.moxieapps.gwt.highcharts.client.ChartSubtitle;
@@ -20,6 +24,9 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -28,6 +35,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.ListDataProvider;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -46,7 +54,25 @@ public class Analytics implements EntryPoint {
 	 */
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
+	
+	// main table 1: begin
+	private static class Contact {
+	    private final String logLevel;
+	    private final int count;
 
+	    public Contact(String logLevel, int count) {
+	      this.logLevel = logLevel;
+	      this.count = count;
+	    }
+	  }
+
+	  // The list of data to display.
+	  private static List<Contact> CONTACTS = Arrays.asList(new Contact("WARN",
+	      12), new Contact("INFO", 37));
+	
+
+	// main table 1: ends
+	
 	/**
 	 * This is the entry point method.
 	 */
@@ -111,6 +137,75 @@ public class Analytics implements EntryPoint {
 		RootPanel.get("highchartsContainer").add(createChart());
 	
 //highcharts code are here: end:
+		
+		// main table 2: starts
+		
+		// Create a CellTable.
+	    CellTable<Contact> table = new CellTable<Contact>();
+
+	    // Create name column.
+	    TextColumn<Contact> logLevelColumn = new TextColumn<Contact>() {
+	      @Override
+	      public String getValue(Contact contact) {
+	        return contact.logLevel;
+	      }
+	    };
+
+	    // Make the name column sortable.
+	    logLevelColumn.setSortable(true);
+
+	    // Create address column.
+	    TextColumn<Contact> countColumn = new TextColumn<Contact>() {
+	      @Override
+	      public String getValue(Contact contact) {
+	        return String.valueOf(contact.count);
+	      }
+	    };
+
+	    // Add the columns.
+	    table.addColumn(logLevelColumn, "LogLevel");
+	    table.addColumn(countColumn, "Count");
+
+	    // Create a data provider.
+	    ListDataProvider<Contact> dataProvider = new ListDataProvider<Contact>();
+
+	    // Connect the table to the data provider.
+	    dataProvider.addDataDisplay(table);
+
+	    // Add the data to the data provider, which automatically pushes it to the
+	    // widget.
+	    List<Contact> list = dataProvider.getList();
+	    for (Contact contact : CONTACTS) {
+	      list.add(contact);
+	    }
+
+	    // Add a ColumnSortEvent.ListHandler to connect sorting to the
+	    // java.util.List.
+	    ListHandler<Contact> columnSortHandler = new ListHandler<Contact>(
+	        list);
+	    columnSortHandler.setComparator(logLevelColumn,
+	        new Comparator<Contact>() {
+	          public int compare(Contact o1, Contact o2) {
+	            if (o1 == o2) {
+	              return 0;
+	            }
+
+	            // Compare the name columns.
+	            if (o1 != null) {
+	              return (o2 != null) ? o1.logLevel.compareTo(o2.logLevel) : 1;
+	            }
+	            return -1;
+	          }
+	        });
+	    table.addColumnSortHandler(columnSortHandler);
+
+	    // We know that the data is sorted alphabetically by default.
+	    table.getColumnSortList().push(logLevelColumn);
+
+	    // Add it to the root panel.
+	    RootPanel.get("mainTableContainer").add(table);
+	    
+	    // main table 2: ends
 		
 
 		// Create a handler for the sendButton and nameField
