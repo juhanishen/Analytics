@@ -39,6 +39,8 @@ public class ZXGJBatterySolrReading {
         //query facet
         query.setQuery("*:*");
         query.addFacetField(ZXGJParserHelper.logLevelField);
+        query.addFacetField(ZXGJParserHelper.normalLineEventField);
+        query.addFacetField(ZXGJParserHelper.normalLineCommentField);   
         
         QueryResponse response = solr.query(query);
 
