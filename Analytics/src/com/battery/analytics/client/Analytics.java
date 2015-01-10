@@ -21,6 +21,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -32,7 +34,9 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
@@ -110,6 +114,10 @@ public class Analytics implements EntryPoint {
 			
 
 			// comment table 1: ends  
+			  
+		    // search table 1: starts
+			
+			// search table 1: ends  
 	
 	/**
 	 * This is the entry point method.
@@ -383,7 +391,38 @@ public class Analytics implements EntryPoint {
 		    
 		    // comments table 2: ends    
 	 	    
-	 	    
+		 // search table 2: starts
+		    
+		    TextBox keybox = new TextBox();
+		    keybox.setText("Please input key words:");
+		    TextBox tb = new TextBox();
+		    Button searchButton = new Button("Search");
+		    
+		    TextArea ta = new TextArea();
+		    ta.setCharacterWidth(40);
+		    ta.setVisibleLines(25);
+
+		    // TODO(ECC) must be tested.
+		    tb.addKeyPressHandler(new KeyPressHandler() {
+
+		      public void onKeyPress(KeyPressEvent event) {
+		        if (!Character.isDigit(event.getCharCode())) {
+		          ((TextBox) event.getSource()).cancelKey();
+		        }
+		      }
+		    });
+
+		   	    
+		    VerticalPanel panel = new VerticalPanel();
+		    panel.add(tb);
+		    panel.add(keybox);
+		    panel.add(searchButton);
+		    panel.add(ta);
+		    
+		    RootPanel.get("searchContainer").add(panel);	 
+		 
+		 // search table 2: ends  
+		 	
 	 	    
 
 		// Create a handler for the sendButton and nameField
