@@ -21,9 +21,8 @@
   <inherits name="org.moxieapps.gwt.highcharts.Highcharts"/>
 
 
-  <!-- Specify the app entry point class.                         -->
+  <!-- Specify the app entry point class.  -->
   <entry-point class='com.battery.analytics.client.Analytics'/>
-
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>

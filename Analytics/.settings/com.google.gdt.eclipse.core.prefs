@@ -1,4 +1,4 @@
 eclipse.preferences.version=1
-launchConfigExternalUrlPrefix=http\://localhost\:8080/war/
+launchConfigExternalUrlPrefix=
 warSrcDir=war
 warSrcDirIsOutput=true
