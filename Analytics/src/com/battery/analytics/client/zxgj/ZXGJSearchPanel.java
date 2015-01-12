@@ -125,15 +125,16 @@ public class ZXGJSearchPanel extends VerticalPanel {
     }
     
     private void drawSequenceLine(final Context2d context2d){
-        
+        //draw straight line
         context2d.beginPath();
         context2d.moveTo(20,20);
         context2d.lineTo(160,20);   
         context2d.stroke();
         context2d.closePath();
         
+        //draw end arrow
         context2d.beginPath();
-        context2d.moveTo(155,20);
+        context2d.moveTo(155,15);
         context2d.lineTo(160,20);   
         context2d.stroke();
         context2d.closePath();
@@ -144,18 +145,46 @@ public class ZXGJSearchPanel extends VerticalPanel {
         context2d.stroke();
         context2d.closePath();
         
-        
+        //draw straight line        
         context2d.beginPath();
         context2d.moveTo(20,60);
         context2d.lineTo(160,60);   
         context2d.stroke();
         context2d.closePath();
         
+        //draw receiving arrow
+        context2d.beginPath();
+        context2d.moveTo(165,55);
+        context2d.lineTo(160,60);   
+        context2d.stroke();
+        context2d.closePath();
+        
+        context2d.beginPath();
+        context2d.moveTo(165,65);
+        context2d.lineTo(160,60);   
+        context2d.stroke();
+        context2d.closePath();
+        
+        //straight line 
         context2d.beginPath();
         context2d.moveTo(20,120);
         context2d.lineTo(160,120);   
         context2d.stroke();
         context2d.closePath();   
+        
+      //draw sending arrow
+        context2d.beginPath();
+        context2d.moveTo(155,115);
+        context2d.lineTo(160,120);   
+        context2d.stroke();
+        context2d.closePath();
+        
+        context2d.beginPath();
+        context2d.moveTo(155,125);
+        context2d.lineTo(160,120);   
+        context2d.stroke();
+        context2d.closePath();
+        
         
         context2d.fillText("this is send message",20, 10);
         context2d.fillText("this is receving message", 20,50);
