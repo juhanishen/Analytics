@@ -154,14 +154,14 @@ public class ZXGJSearchPanel extends VerticalPanel {
         
         //draw receiving arrow
         context2d.beginPath();
-        context2d.moveTo(165,55);
-        context2d.lineTo(160,60);   
+        context2d.moveTo(25,55);
+        context2d.lineTo(20,60);   
         context2d.stroke();
         context2d.closePath();
         
         context2d.beginPath();
-        context2d.moveTo(165,65);
-        context2d.lineTo(160,60);   
+        context2d.moveTo(25,65);
+        context2d.lineTo(20,60);   
         context2d.stroke();
         context2d.closePath();
         
