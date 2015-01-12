@@ -50,6 +50,8 @@ public class ZXGJEPACommentPanel extends VerticalPanel {
 	        return String.valueOf(comment.count);
 	      }
 	    };
+	    
+	    commentCountColumn.setSortable(true);
 
 	    // Add the columns.
 	    commentTable.addColumn(commentNameColumn, "commentName");
@@ -86,10 +88,37 @@ public class ZXGJEPACommentPanel extends VerticalPanel {
 	            return -1;
 	          }
 	        });
+	    
+	    ListHandler<EPAComment> countColumnSortHandler = new ListHandler<EPAComment>(
+	    		commentList);
+	 	   countColumnSortHandler.setComparator(commentCountColumn,
+	 	        new Comparator<EPAComment>() {
+	 	          public int compare(EPAComment o1, EPAComment o2) {
+	 	            if (o1 == o2) {
+	 	              return 0;
+	 	            }
+
+	 	            // Compare the name columns.
+	 	            if (o1 != null && o2 != null ) {
+	 	              if(o1.count > o2.count ){
+	 	            	  return 1;
+	 	              }else if(o1.count == o2.count){
+	 	            	  return 0;
+	 	              }else {
+	 	            	  return -1;
+	 	              }
+	 	            }
+	 	            return -1;
+	 	          }
+	 	        });
+	    
+	    
 	    commentTable.addColumnSortHandler(commentColumnSortHandler);
+	    commentTable.addColumnSortHandler(countColumnSortHandler);
 
 	    // We know that the data is sorted alphabetically by default.
 	    commentTable.getColumnSortList().push(commentNameColumn);
+	    commentTable.getColumnSortList().push(commentCountColumn);
 
 	    // Add it to the root panel.
 	    add(commentTable);

@@ -57,6 +57,8 @@ public class ZXGJMainPanel extends VerticalPanel {
 		        return String.valueOf(contact.count);
 		      }
 		    };
+		    
+		    countColumn.setSortable(true);
 
 		    // Add the columns.
 		    table.addColumn(logLevelColumn, "LogLevel");
@@ -93,15 +95,39 @@ public class ZXGJMainPanel extends VerticalPanel {
 		            return -1;
 		          }
 		        });
+		    
+		    ListHandler<LogClassification> countColumnSortHandler = new ListHandler<LogClassification>(
+		    		list);
+		 	   countColumnSortHandler.setComparator(countColumn,
+		 	        new Comparator<LogClassification>() {
+		 	          public int compare(LogClassification o1, LogClassification o2) {
+		 	            if (o1 == o2) {
+		 	              return 0;
+		 	            }
+
+		 	            // Compare the name columns.
+		 	            if (o1 != null && o2 != null ) {
+		 	              if(o1.count > o2.count ){
+		 	            	  return 1;
+		 	              }else if(o1.count == o2.count){
+		 	            	  return 0;
+		 	              }else {
+		 	            	  return -1;
+		 	              }
+		 	            }
+		 	            return -1;
+		 	          }
+		 	        });
+		    
 		    table.addColumnSortHandler(columnSortHandler);
+		    table.addColumnSortHandler(countColumnSortHandler);
 
 		    // We know that the data is sorted alphabetically by default.
 		    table.getColumnSortList().push(logLevelColumn);
+		    table.getColumnSortList().push(countColumn);
 
 		    // Add it to the root panel.
 		    this.add(table);
 	  }
-	  
-	
 
 }

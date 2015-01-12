@@ -53,6 +53,8 @@ public class ZXGJEPAEventPanel extends VerticalPanel {
 	 	        return String.valueOf(epaEvent.count);
 	 	      }
 	 	    };
+	 	    
+	 	   eventCountColumn.setSortable(true);
 
 	 	    // Add the columns.
 	 	   eventTable.addColumn(eventNameColumn, "epaEvent");
@@ -89,11 +91,37 @@ public class ZXGJEPAEventPanel extends VerticalPanel {
 	 	            return -1;
 	 	          }
 	 	        });
+	 	   
+	 	  ListHandler<EPAEvent> countColumnSortHandler = new ListHandler<EPAEvent>(
+		 	        eventList);
+		 	   countColumnSortHandler.setComparator(eventCountColumn,
+		 	        new Comparator<EPAEvent>() {
+		 	          public int compare(EPAEvent o1, EPAEvent o2) {
+		 	            if (o1 == o2) {
+		 	              return 0;
+		 	            }
+
+		 	            // Compare the name columns.
+		 	            if (o1 != null && o2 != null ) {
+		 	              if(o1.count > o2.count ){
+		 	            	  return 1;
+		 	              }else if(o1.count == o2.count){
+		 	            	  return 0;
+		 	              }else {
+		 	            	  return -1;
+		 	              }
+		 	            }
+		 	            return -1;
+		 	          }
+		 	        });
+	 	   
 	 	    eventTable.addColumnSortHandler(eventColumnSortHandler);
+	 	    eventTable.addColumnSortHandler(countColumnSortHandler);
 
 	 	    // We know that the data is sorted alphabetically by default.
 	 	    eventTable.getColumnSortList().push(eventNameColumn);
-
+	 	   eventTable.getColumnSortList().push(eventCountColumn);
+	 	   
 	 	    // Add it to the root panel.
 	 	    add(eventTable);
 	}
