@@ -12,6 +12,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -38,10 +40,11 @@ public class ZXGJSearchPanel extends VerticalPanel {
 			   .setPoints(new Number[] { 163, 203, 276, 408, 547, 729, 628 });
 			searchChart.addSeries(searchSeries);
 			
-		
-			TextBox keybox = new TextBox();
-		    keybox.setText("Please input key words:");
-		    TextBox tb = new TextBox();
+	
+    		Label keyLabel = new Label("Key Search:");
+    		keyLabel.setStyleName("searchPanelLable");
+			TextBox tb = new TextBox();	
+		   
 		    DateBox startDateBox = new DateBox();
 		    DateBox endDateBox = new DateBox();
 		    startDateBox.setValue(new Date());
@@ -50,28 +53,24 @@ public class ZXGJSearchPanel extends VerticalPanel {
 		    RadioButton rbEPA = new RadioButton("searchRadioGroup", "serach in EPA log file only");
 		    RadioButton rbALL = new RadioButton("searchRadioGroup", "search in ALL log files");
 		    rbEPA.setValue(true);
+		    rbEPA.setStyleName("searchKeyButton");
+		    rbALL.setStyleName("searchKeyButton");
+		    
 		    Button searchButton = new Button("Search");
+		    searchButton.setStyleName("searchKeyButton");   
+		    
 		    final Button showSearchResultChartButton = new Button("Show search result in chart");
 		    showSearchResultChartButton.setVisible(false);
+		    showSearchResultChartButton.setStyleName("searchKeyButton");
 		    final Button showSearchResultSequenceButton = new Button("Show search result in sequence");
 		    showSearchResultSequenceButton.setVisible(false);
-		    
+		    showSearchResultSequenceButton.setStyleName("searchKeyButton");
 		    
 		    final TextArea ta = new TextArea();
 		    ta.setCharacterWidth(35);
 		    ta.setVisibleLines(10);
 
-		    // TODO(ECC) must be tested.
-		    tb.addKeyPressHandler(new KeyPressHandler() {
-
-		      public void onKeyPress(KeyPressEvent event) {
-		        if (!Character.isDigit(event.getCharCode())) {
-		          ((TextBox) event.getSource()).cancelKey();
-		        }
-		      }
-		    });
-
-		    
+		   	    
 		    searchButton.addClickHandler(new ClickHandler() {
 		    	public  void onClick(ClickEvent event){
 		    	   	ta.setText("EPAlog1: [2014-08-23 10:59:58] [INFO] [CSEComPlugIn.Run] InvokeSECSEvent Mess"+"\n"
@@ -93,16 +92,30 @@ public class ZXGJSearchPanel extends VerticalPanel {
 		    }); 
 		    
 		    final VerticalPanel panel = new VerticalPanel();
-		    panel.add(tb);
-		    panel.add(keybox);
-		    panel.add(startDateBox);
-		    panel.add(endDateBox);
+
+		    HorizontalPanel searchKeyPanel = new HorizontalPanel();
+		    searchKeyPanel.add(keyLabel);
+		    searchKeyPanel.add(tb);		    
+		    panel.add(searchKeyPanel);
+		    
+		    HorizontalPanel timePanel = new HorizontalPanel();
+		    timePanel.add(startDateBox);
+		    timePanel.add(endDateBox);
+		    panel.add(timePanel);
+
 		    panel.add(searchButton);
-		    panel.add(rbEPA);
-		    panel.add(rbALL);
+		    
+		    HorizontalPanel rbPanel = new HorizontalPanel();
+		    rbPanel.add(rbEPA);
+		    rbPanel.add(rbALL);
+		    panel.add(rbPanel);
+		    
 		    panel.add(ta);
-		    panel.add(showSearchResultChartButton);
-		    panel.add(showSearchResultSequenceButton);
+		    HorizontalPanel hbuttons = new HorizontalPanel();
+		    hbuttons.add(showSearchResultChartButton);
+		    hbuttons.add(showSearchResultSequenceButton);
+		    panel.add(hbuttons);
+		    
 		    
 		    showSearchResultChartButton.addClickHandler(new ClickHandler() {
 		    	public  void onClick(ClickEvent event){

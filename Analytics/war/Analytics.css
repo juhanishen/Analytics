@@ -35,6 +35,111 @@ h1 {
 
 
 /**  Own css starts here **/
-.tabPanel {
-	width:400px;
+.searchPanelLable{
+   font-size: 100%; 
+   font-weight: bold;
+   color:blue;
+   padding:5px;
+   margin:5px;
+}
+
+.searchKeyButton{
+	background-color: #408080;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #0000ff;
+    font-family: 'Oswald';
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+}
+
+.searchKeyButton:hover {
+    border: none;
+    background:#808040;
+    box-shadow: 0px 0px 1px #777;
+}
+
+.searchRadioButton{
+  background-color: blue;
+  border: 1px solid #FFFF00;
+  margin: 10px;
+  font-size: 2em;
+}
+
+.gwt-TabPanel {
+    background-color: rgb(40, 199, 199);
+}
+
+.roundedTab {
+    background-color: #008000;  
+}
+
+.gwt-TabBar {
+    background-color: rgb(36, 36, 36);
+    padding-top: 5px;
+}
+
+.gwt-TabPanelBottom {
+    background-color: #c0c0c0646464;
+    border-top: none;
+
+    padding-top: 1px;
+    margin: 0px 0px 3px 0px;
+}
+
+.gwt-TabBar .gwt-TabBarFirst {
+    border-bottom: 1px solid #408080363636;
+    padding-left: 3px;
+ }
+
+ .gwt-TabBar .gwt-TabBarRest {
+    border-bottom: 1px solid #808040363636;
+    padding-right: 3px;
+ }
+
+ .gwt-TabBar .gwt-TabBarItem {           
+    border-bottom: 1px solid #c0c0c0363636;
+
+    margin-left: 2px;
+    margin-right: 2px;
+
+    cursor: pointer;
+    cursor: hand;
+
+    background-color: #c0c0c0484848;
+ } 
+
+ .gwt-TabBar .gwt-TabBarItem-selected {  
+    border-bottom: 1px solid #408080646464;       
+    background-color: #c0c0c0646464;
+ }
+
+ .gwt-TabBar .selectedText {
+    color: white;
+    background-color: #0000ff646464;
+    font-weight: bold;      
+    padding: 3px 7px 5px 7px;
+ }
+
+ .gwt-TabBar .unselectedText {
+    color: rgb(227, 209, 13);       
+    background-color: rgb(48, 48, 48);
+
+    padding: 3px 7px 5px 7px;       
+}
+
+.gwt-TabBar .onMouseEnter {
+    color: white;
+    background-color: rgb(64, 64, 64);
+}
+
+.gwt-TabBar .onMouseLeave {
+
+}
+
+.deckPanel {
+    margin: 5px;
 }
