@@ -3,15 +3,25 @@ package com.battery.analytics.client.zxgj;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
+import com.battery.analytics.client.LogLevelService;
+import com.battery.analytics.client.LogLevelServiceAsync;
+import com.battery.analytics.shared.EPARecord;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.ListDataProvider;
 
 
 public class ZXGJMainPanel extends VerticalPanel {
+	
+	private final LogLevelServiceAsync logLevelService = GWT
+			.create(LogLevelService.class);
 	
 	private static class LogClassification {
 	    private final String logLevel;
@@ -126,8 +136,43 @@ public class ZXGJMainPanel extends VerticalPanel {
 		    table.getColumnSortList().push(logLevelColumn);
 		    table.getColumnSortList().push(countColumn);
 
+		    final TextArea testBox = new TextArea();
+		    
+		    
+		    table.addCellPreviewHandler(new CellPreviewEvent.Handler<LogClassification>() {
+
+		        @Override
+		        public void onCellPreview(final CellPreviewEvent<LogClassification> event) {
+
+		            if (BrowserEvents.CLICK.equals(event.getNativeEvent().getType())) {
+
+		                final LogClassification value = event.getValue();
+		                testBox.setText("LogLevel is "+value.logLevel);
+		                final Boolean state = !event.getDisplay().getSelectionModel().isSelected(value);
+		                event.getDisplay().getSelectionModel().setSelected(value, state);
+		                event.setCanceled(true);
+		            }
+		        }
+		});
+
+		    
 		    // Add it to the root panel.
-		    this.add(table);
+		    add(table);
+		    add(testBox);
+		    logLevelService.getEAPRecords("WARN",
+					new AsyncCallback<EPARecord[]>() {
+						public void onFailure(Throwable caught) {
+							// Show the RPC error message to the user
+							testBox
+									.setText("Remote Procedure Call - Failure");
+						
+						}
+
+						public void onSuccess(EPARecord[] records) {
+							testBox.setText("Remote Procedure Call"+records[2].getLogLevel()+":"+records[2].getComment());
+							
+						}
+					});		    
 	  }
 
 }

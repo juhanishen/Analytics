@@ -16,6 +16,16 @@
     <url-pattern>/analytics/greet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>logLevelServlet</servlet-name>
+    <servlet-class>com.battery.analytics.server.LogLevelServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>logLevelServlet</servlet-name>
+    <url-pattern>/analytics/loglevel</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Analytics.html</welcome-file>
