@@ -169,7 +169,9 @@ public class ZXGJMainPanel extends VerticalPanel {
 						}
 
 						public void onSuccess(EPARecord[] records) {
-							testBox.setText("Remote Procedure Call"+records[2].getLogLevel()+":"+records[2].getComment());
+							testBox.setText("Remote Procedure Call:\n"+
+									records[0].getTimeStamp()+":"+records[0].getLogLevel()+":"+records[0].getEvent()+":"+records[0].getComment()+"\n"+ 	
+									records[2].getTimeStamp()+":"+records[2].getLogLevel()+":"+records[2].getEvent()+":"+records[2].getComment()+"\n");
 							
 						}
 					});		    
