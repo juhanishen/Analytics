@@ -158,7 +158,7 @@ public class ZXGJSearchPanel extends VerticalPanel {
 // try 1 ends			    	  
 			    	 highLimit.addPoint(500);
 			    	 lowLimit.addPoint(300);
-			    	 searchSeries.addPoint(500);
+			    	 searchSeries.addPoint(450);
 			    	 searchChart.redraw();
 			    	 
 			      }
