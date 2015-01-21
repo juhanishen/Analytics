@@ -2,6 +2,7 @@ package com.battery.analytics.client.zxgj;
 
 import java.util.Date;
 
+import org.moxieapps.gwt.highcharts.client.Animation;
 import org.moxieapps.gwt.highcharts.client.Chart;
 import org.moxieapps.gwt.highcharts.client.Series;
 
@@ -9,8 +10,6 @@ import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -36,10 +35,19 @@ public class ZXGJSearchPanel extends VerticalPanel {
 			   .setMarginRight(10);
 
 			 Series searchSeries = searchChart.createSeries()
-			   .setName("Moles per Yard")
+			   .setName("deviceId")
 			   .setPoints(new Number[] { 163, 203, 276, 408, 547, 729, 628 });
 			searchChart.addSeries(searchSeries);
+			Series highLimit = searchChart.createSeries().setName("High Limit")
+					.setPoints(new Number[] {500,500,500,500,500,500,500});
+			Series lowLimit = searchChart.createSeries().setName("Low Limit")
+					.setPoints(new Number[] {300,300,300,300,300,300,300});
+			searchChart.addSeries(highLimit);
+			searchChart.addSeries(lowLimit);
 			
+//			searchChart.getSeries("deviceId").addPoint(
+//					new Integer(400),true,true, new Animation().setDuration(100)
+//				       .setEasing(Animation.Easing.LINEAR));
 	
     		Label keyLabel = new Label("Key Search:");
     		keyLabel.setStyleName("searchPanelLable");
