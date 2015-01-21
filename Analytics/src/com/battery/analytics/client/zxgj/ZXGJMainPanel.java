@@ -137,6 +137,8 @@ public class ZXGJMainPanel extends VerticalPanel {
 		    table.getColumnSortList().push(countColumn);
 
 		    final TextArea testBox = new TextArea();
+		    testBox.setWidth("600px");
+		    testBox.setHeight("400px");
 		    
 		    
 		    table.addCellPreviewHandler(new CellPreviewEvent.Handler<LogClassification>() {
@@ -147,7 +149,22 @@ public class ZXGJMainPanel extends VerticalPanel {
 		            if (BrowserEvents.CLICK.equals(event.getNativeEvent().getType())) {
 
 		                final LogClassification value = event.getValue();
-		                testBox.setText("LogLevel is "+value.logLevel);
+		                logLevelService.getEAPRecords(value.logLevel,
+		    					new AsyncCallback<EPARecord[]>() {
+		    						public void onFailure(Throwable caught) {
+		    							// Show the RPC error message to the user
+		    							testBox
+		    									.setText("Remote Procedure Call - Failure");
+		    						
+		    						}
+
+		    						public void onSuccess(EPARecord[] records) {
+		    							testBox.setText("Remote Procedure Call:\n"+
+		    									records[0].getTimeStamp()+":"+records[0].getLogLevel()+":"+records[0].getEvent()+":"+records[0].getComment()+"\n"+ 	
+		    									records[2].getTimeStamp()+":"+records[2].getLogLevel()+":"+records[2].getEvent()+":"+records[2].getComment()+"\n");
+		    							
+		    						}
+		    					});		
 		                final Boolean state = !event.getDisplay().getSelectionModel().isSelected(value);
 		                event.getDisplay().getSelectionModel().setSelected(value, state);
 		                event.setCanceled(true);
@@ -159,22 +176,7 @@ public class ZXGJMainPanel extends VerticalPanel {
 		    // Add it to the root panel.
 		    add(table);
 		    add(testBox);
-		    logLevelService.getEAPRecords("WARN",
-					new AsyncCallback<EPARecord[]>() {
-						public void onFailure(Throwable caught) {
-							// Show the RPC error message to the user
-							testBox
-									.setText("Remote Procedure Call - Failure");
-						
-						}
-
-						public void onSuccess(EPARecord[] records) {
-							testBox.setText("Remote Procedure Call:\n"+
-									records[0].getTimeStamp()+":"+records[0].getLogLevel()+":"+records[0].getEvent()+":"+records[0].getComment()+"\n"+ 	
-									records[2].getTimeStamp()+":"+records[2].getLogLevel()+":"+records[2].getEvent()+":"+records[2].getComment()+"\n");
-							
-						}
-					});		    
+		        
 	  }
 
 }
