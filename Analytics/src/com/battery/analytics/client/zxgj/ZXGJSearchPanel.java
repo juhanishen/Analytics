@@ -4,12 +4,14 @@ import java.util.Date;
 
 import org.moxieapps.gwt.highcharts.client.Animation;
 import org.moxieapps.gwt.highcharts.client.Chart;
+import org.moxieapps.gwt.highcharts.client.Point;
 import org.moxieapps.gwt.highcharts.client.Series;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -34,16 +36,18 @@ public class ZXGJSearchPanel extends VerticalPanel {
 			   .setChartTitleText("Lawn Tunnels")
 			   .setMarginRight(10);
 
-			 Series searchSeries = searchChart.createSeries()
+			 final Series searchSeries = searchChart.createSeries()
 			   .setName("deviceId")
 			   .setPoints(new Number[] { 163, 203, 276, 408, 547, 729, 628 });
 			searchChart.addSeries(searchSeries);
-			Series highLimit = searchChart.createSeries().setName("High Limit")
+			final Series highLimit = searchChart.createSeries().setName("High Limit")
 					.setPoints(new Number[] {500,500,500,500,500,500,500});
-			Series lowLimit = searchChart.createSeries().setName("Low Limit")
+			final Series lowLimit = searchChart.createSeries().setName("Low Limit")
 					.setPoints(new Number[] {300,300,300,300,300,300,300});
 			searchChart.addSeries(highLimit);
 			searchChart.addSeries(lowLimit);
+			
+//			searchChart.removeSeries(searchSeries);
 			
 //			searchChart.getSeries("deviceId").addPoint(
 //					new Integer(400),true,true, new Animation().setDuration(100)
@@ -136,9 +140,36 @@ public class ZXGJSearchPanel extends VerticalPanel {
 		    panel.add(hbuttons);
 		    
 		    
+		    final Timer t = new Timer() {
+			      @Override
+			      public void run() {
+// try 1 start			    	  
+//			    	  searchChart.removeSeries(searchSeries);
+//			    	  Point[] points = searchSeries.getPoints();
+//			    	  Point[] newPoints = new Point[points.length+2];
+//			    	  for(int i=0;i<points.length;i++){
+//			    		  newPoints[i] = points[i];
+//			    	  }
+//			    	  newPoints[points.length] = new Point(points[points.length-1].getX().intValue()+10,points[points.length-1].getY().intValue()-5);
+//			    	  newPoints[points.length+1] = new Point(points[points.length-2].getX().intValue()+8,points[points.length-2].getY().intValue()-3);
+//			    	  searchSeries.setPoints(newPoints);
+//			    	  searchChart.addSeries(searchSeries);
+//			    	  searchChart.redraw();
+// try 1 ends			    	  
+			    	 highLimit.addPoint(500);
+			    	 lowLimit.addPoint(300);
+			    	 searchSeries.addPoint(500);
+			    	 searchChart.redraw();
+			    	 
+			      }
+			    };
+		    
+		    
 		    showSearchResultChartButton.addClickHandler(new ClickHandler() {
 		    	public  void onClick(ClickEvent event){
 		    		panel.add(searchChart);
+				    // Schedule the timer to run once in 5 seconds.
+				    t.scheduleRepeating(5000);
 		        }	    
 		    });
 		    
@@ -158,7 +189,9 @@ public class ZXGJSearchPanel extends VerticalPanel {
 		    });
 		    
 		    add(panel);		
-    }
+		    
+
+   }
     
     private void drawSequenceLine(final Context2d context2d){
         //draw straight line
