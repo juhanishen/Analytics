@@ -38,39 +38,62 @@ h1 {
 .searchPanelLable{
    font-size: 100%; 
    font-weight: bold;
-   color:blue;
+   color:#ffffff;
    padding:5px;
    margin:5px;
 }
 
 .searchKeyButton{
-	background-color: #408080;
+	background-color: #c0c0c0;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius:6px;
-    color: #0000ff;
+    color: #ffffff;
     font-family: 'Oswald';
     font-size: 20px;
     text-decoration: none;
     cursor: pointer;
     border:none;
+    margin:5px;
 }
 
 .searchKeyButton:hover {
     border: none;
-    background:#808040;
+    background:#7d7377;
     box-shadow: 0px 0px 1px #777;
 }
 
+.searchDateBox{
+    border-width:1px;
+    border-style:inset;
+    border-right:solid 1px #CCCCCC;
+    border-bottom:solid 1px #CCCCCC;
+    border-color: #400040 ;
+}
+
+.searchPanelAeaBox{
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+    border-width: 0;	
+	background: #c0c0c0;
+}
+
 .searchRadioButton{
-  background-color: blue;
-  border: 1px solid #FFFF00;
-  margin: 10px;
-  font-size: 2em;
+  background-color: grey;
+  border: 1px solid #400040;
+  margin: 5px;
+  font-size: 3em;
+}
+
+.searchPanelCanvas{
+  margin: 5px;	
+  border: 1px solid #400040;
+  font-size: 3em;
 }
 
 .gwt-TabPanel {
-    background-color: rgb(40, 199, 199);
+    background-color: #c0c0c0;
 }
 
 .roundedTab {

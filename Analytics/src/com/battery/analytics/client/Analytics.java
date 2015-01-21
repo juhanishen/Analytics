@@ -42,8 +42,8 @@ public class Analytics implements EntryPoint {
 	    tp.add(knowledgePanel,"专家系统");
 	    
 	    //set parameters of tp:
-	    tp.setWidth("600px");
-	    tp.setHeight("400px");
+	    tp.setWidth("1200px");
+	    tp.setHeight("800px");
 	    // Show the 'bar' tab initially.
 	    tp.selectTab(0);
 

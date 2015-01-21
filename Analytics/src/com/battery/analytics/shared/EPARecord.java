@@ -1,8 +1,7 @@
 package com.battery.analytics.shared;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Date;
+
 
 public class EPARecord implements Serializable {
 	private static final long serialVersionUID = -6723643433565890894L;
@@ -45,17 +44,5 @@ public class EPARecord implements Serializable {
 		this.comment = comment;
 	}
 	
-//	public void writeObject(java.io.ObjectOutputStream out)
-//		     throws IOException{
-//		out.writeChars(timeStamp);
-//		out.writeChars(logLevel);
-//		out.writeChars(event);
-//		out.writeChars(comment);		
-//	}
-//		     
-//    public void readObject(java.io.ObjectInputStream in)
-//		     throws IOException, ClassNotFoundException{
-//		
-//	}
-	
+
 }

@@ -45,10 +45,18 @@ public class ZXGJSearchPanel extends VerticalPanel {
     		keyLabel.setStyleName("searchPanelLable");
 			TextBox tb = new TextBox();	
 		   
+			Label fromLabel = new Label("From");
+			fromLabel.setStyleName("searchPanelLable");
+			Label toLabel = new Label("To");
+			toLabel.setStyleName("searchPanelLable");
+			
 		    DateBox startDateBox = new DateBox();
 		    DateBox endDateBox = new DateBox();
 		    startDateBox.setValue(new Date());
 		    endDateBox.setValue(new Date());
+		    startDateBox.setStyleName("searchDateBox");
+		    endDateBox.setStyleName("searchDateBox");
+		    
 		    // Make some radio buttons, all in one group.
 		    RadioButton rbEPA = new RadioButton("searchRadioGroup", "serach in EPA log file only");
 		    RadioButton rbALL = new RadioButton("searchRadioGroup", "search in ALL log files");
@@ -67,6 +75,7 @@ public class ZXGJSearchPanel extends VerticalPanel {
 		    showSearchResultSequenceButton.setStyleName("searchKeyButton");
 		    
 		    final TextArea ta = new TextArea();
+		    ta.setStyleName("searchPanelAeaBox");
 		    ta.setCharacterWidth(35);
 		    ta.setVisibleLines(10);
 
@@ -99,7 +108,9 @@ public class ZXGJSearchPanel extends VerticalPanel {
 		    panel.add(searchKeyPanel);
 		    
 		    HorizontalPanel timePanel = new HorizontalPanel();
+		    timePanel.add(fromLabel);
 		    timePanel.add(startDateBox);
+		    timePanel.add(toLabel);
 		    timePanel.add(endDateBox);
 		    panel.add(timePanel);
 
@@ -120,16 +131,20 @@ public class ZXGJSearchPanel extends VerticalPanel {
 		    showSearchResultChartButton.addClickHandler(new ClickHandler() {
 		    	public  void onClick(ClickEvent event){
 		    		panel.add(searchChart);
-		    				    	}	    
+		        }	    
 		    });
 		    
 		    showSearchResultSequenceButton.addClickHandler(new ClickHandler() {
 		    	public  void onClick(ClickEvent event){
+		    		Label sequenceLabel= new Label("message sequence diagram:");
+		    		sequenceLabel.setStyleName("searchPanelLable");
 		    		Canvas canvas = Canvas.createIfSupported();
 		    		canvas.setWidth("600px");
 		    		canvas.setHeight("400px");
+		    		canvas.setStyleName("searchPanelCanvas");
 		            final Context2d context2d = canvas.getContext2d();
 		    		drawSequenceLine(context2d);
+		    		panel.add(sequenceLabel);
 		    	    panel.add(canvas);
 		    	}	    
 		    });
@@ -198,7 +213,7 @@ public class ZXGJSearchPanel extends VerticalPanel {
         context2d.stroke();
         context2d.closePath();
         
-        
+        context2d.setFont("bold 10px sans-serif");
         context2d.fillText("this is send message",20, 10);
         context2d.fillText("this is receving message", 20,50);
         context2d.fillText("I am going to enhance sequence diagram",20,110);
