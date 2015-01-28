@@ -13,9 +13,9 @@ import com.battery.analytics.solr.DataFeedHelper;
 
 public class ZXGJEAPFileReader {
 	
-	private ZXGJDocumentUploader uploader;
+	private ZXGJEPADocumentUploader uploader;
 	
-	public ZXGJEAPFileReader(ZXGJDocumentUploader uploader){
+	public ZXGJEAPFileReader(ZXGJEPADocumentUploader uploader){
 		this.uploader = uploader;
 	}	
 	
@@ -40,8 +40,8 @@ public class ZXGJEAPFileReader {
 	    		  line = line.concat(ZXGJParserHelper.ownAttributesSeporator+
                           +lineNum+ZXGJParserHelper.ownAttributesSeporator
                           +recordNum);    		  
-	    	  }	    	  
-	       lines.add(line);
+	    	  }
+	       lines.add(line);	       
 	       uploader.submitDoc(lines);	         
 	       lineNum++;
 	       recordNum++;

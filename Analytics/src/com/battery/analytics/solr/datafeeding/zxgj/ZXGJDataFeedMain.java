@@ -12,13 +12,15 @@ public class ZXGJDataFeedMain {
 		String urlString = "http://localhost:8983/solr";		
 		SolrServer solr = new HttpSolrServer(urlString);
 		
-		ZXGJDocumentUploader uploader = new ZXGJDocumentUploader(solr);
+		ZXGJEPADocumentUploader epaUploader = new ZXGJEPADocumentUploader(solr);
 			
-		ZXGJEAPFileReader eapFileReader = new ZXGJEAPFileReader(uploader);
+		ZXGJEAPFileReader eapFileReader = new ZXGJEAPFileReader(epaUploader);
 		eapFileReader.readDocumentsFiles();
         	
+		ZXGJSECDocumentUploader secUploader = new ZXGJSECDocumentUploader(solr);
 		
-		
+		ZXGJSECFileReader secFileReader = new ZXGJSECFileReader(secUploader);
+		secFileReader.readDocumentsFiles();
 		
 	}
 }
