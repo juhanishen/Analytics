@@ -17,7 +17,7 @@ import org.apache.solr.common.util.NamedList;
 
 import com.battery.analytics.solr.datafeeding.zxgj.ZXGJParserHelper;
 
-public class ZXGJBatterySolrReading {
+public class ZXGJBatteryEPASolrReading {
     public static void main(String[] args) throws SolrServerException{
         String urlString = "http://localhost:8983/solr"; 		
         SolrServer solr = new HttpSolrServer(urlString);	

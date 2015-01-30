@@ -48,6 +48,12 @@ public class ZXGJParserHelper {
 	
 	public static final String SEND = "SEND";
 	public static final String RECEIVE = "RECV";
+
+	public static final String facetSECrange=secLineTimeStampField;
+	public static final String facetSECDate = "facet.date";
+	public static final String facetSECDateStartField="facet.date.start";
+	public static final String facetSECDateEndField = "facet.date.end";
+	public static final String facetSECDateGapField = "facet.date.gap";
 	
 	public static boolean doesLineStartWithDigit(String line){
 		return line.startsWith("0") || line.startsWith("1") ||
