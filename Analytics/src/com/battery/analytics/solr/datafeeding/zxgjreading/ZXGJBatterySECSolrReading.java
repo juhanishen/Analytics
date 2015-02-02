@@ -1,6 +1,7 @@
 package com.battery.analytics.solr.datafeeding.zxgjreading;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
@@ -22,18 +23,29 @@ public class ZXGJBatterySECSolrReading {
         SolrQuery query = new SolrQuery();
         
         //query facet
-        query.setQuery("*:*");
+        query.setQuery(ZXGJParserHelper.secLineMessageKeyCodeValueField+":TransactionTimerTimeout");
         query.setFacet(true);
         query.addFacetField(ZXGJParserHelper.secLineMessageKeyCodeValueField);
-        query.addFacetQuery(ZXGJParserHelper.secLineTimeStampField+"[2015-01-23T11:35:34.653Z TO 2015-01-23T11:35:36.653Z}");
-        query.add(ZXGJParserHelper.facetSECDate,ZXGJParserHelper.secLineTimeStampField);
-        query.add(ZXGJParserHelper.facetSECDateStartField,"2015-01-23T11:35:34.653Z");
-        query.add(ZXGJParserHelper.facetSECDateEndField,"2015-01-23T11:36:39.096Z");
-//        query.add(ZXGJParserHelper.facetSECDateGapField,"%2B1SECOND");   
-        query.add(ZXGJParserHelper.facetSECDateGapField,"+1SECOND");   
+        query.addFacetQuery(ZXGJParserHelper.secLineTimeStampField+":[2015-01-23T11:35:34.653Z TO 2015-01-23T11:35:36.653Z}");
+        query.addFacetQuery(ZXGJParserHelper.secLineTimeStampField+":[2015-01-23T11:35:36.653Z TO 2015-01-23T11:36:40.653Z]");
+//        query.addFilterQuery(ZXGJParserHelper.secLineMessageKeyCodeValueField+":TransactionTimerTimeout");
+//        query.add(ZXGJParserHelper.facetSECDate,ZXGJParserHelper.secLineTimeStampField);
+//        query.add(ZXGJParserHelper.facetSECDateStartField,"2015-01-23T11:35:34.653Z");
+//        query.add(ZXGJParserHelper.facetSECDateEndField,"2015-01-23T11:36:39.096Z");
+////        query.add(ZXGJParserHelper.facetSECDateGapField,"%2B1SECOND");   
+//        query.add(ZXGJParserHelper.facetSECDateGapField,"+1SECOND");   
 
         QueryResponse response = solr.query(query);
-
+        
+        
+        Map<String, Integer> facetQueryRes = response.getFacetQuery();
+        System.out.println("facet query response size is:"+facetQueryRes);        
+        for(String key:facetQueryRes.keySet()){
+            System.out.println("Key is:"+key+" ,value is:"+facetQueryRes.get(key));            	
+        }
+        
+        
+        
         
        List<FacetField> cat = response.getFacetFields();
        System.out.println("facet fields length is:"+cat.size());
